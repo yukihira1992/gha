@@ -8,7 +8,8 @@ if [ -n "$(git status --porcelain)" ]; then
     git config --local user.email "ykhr0130@gmail.com"
     git add date.txt
     git commit -m "Updated date."
-    TAG=`cat /dev/urandom | base64 | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`
-    git tag $TAG
+    LATEST_TAG=`git tag -l --sort=-v:refname | grep -E '^v\d+\.\d+\.\d+' | head -n 1`
+    NEXT_TAG=`python next_patch.py $LATEST_TAG`
+    git tag $NEXT_TAG
     git push origin HEAD --tags
 fi
