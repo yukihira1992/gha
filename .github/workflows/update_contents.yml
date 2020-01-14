@@ -1,0 +1,33 @@
+name: Update contents
+
+on:
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  build:
+    name: Update contents
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Update contents
+        run: |
+          python main.py > date.txt
+      - name: Create patch
+        run: |
+          git config --local user.name "yukihira1992"
+          git config --local user.email "ykhr0130@gmail.com"
+          git add date.txt
+          git commit -m "Updated date."
+      - name: Push patch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+
