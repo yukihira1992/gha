@@ -12,6 +12,6 @@ if [ -n "$(git status --porcelain)" ]; then
     git add tag.txt
     git commit -m "Updated date."
     NEXT_TAG=`python next_patch.py $LATEST_TAG`
-    git tag $NEXT_TAG
+    git tag v${NEXT_TAG}
     git push origin HEAD --tags
 fi
