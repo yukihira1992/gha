@@ -8,5 +8,7 @@ if [ -z "$(git status --porcelain)" ]; then
     git config --local user.email "ykhr0130@gmail.com"
     git add date.txt
     git commit -m "Updated date."
-    git push origin HEAD
+    TAG=`cat /dev/urandom | base64 | fold -w 8 | head -n 1`
+    git tag $TAG
+    git push origin HEAD --tags
 fi
