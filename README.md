@@ -1,2 +1,2 @@
-# ghq
+# gha
 Test of github actins.
